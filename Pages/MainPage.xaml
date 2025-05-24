@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mdl="clr-namespace:MauiApp_Karting_OCR.Models"
+             x:Class="MauiApp_Karting_OCR.Pages.MainPage"
+             BackgroundColor="#f8f9fa">
+
+    <Shell.TitleView>
+        <Grid ColumnDefinitions="*,Auto">
+            <StackLayout VerticalOptions="Center">
+                <Label Text="🏁 Karting OCR" 
+                       FontSize="25" 
+                       FontAttributes="Bold"
+                       TextColor="White" />
+            </StackLayout>
+
+            <Button Grid.Column="1" 
+                    Background="Transparent"
+                    ImageSource="camera.png"
+                    WidthRequest="56" 
+                    HeightRequest="56"
+                    Command="{Binding NavigateToCameraCommand}" />
+        </Grid>
+    </Shell.TitleView>
+
+    <Grid RowDefinitions="Auto,*">
+        <RefreshView Grid.Row="1" 
+                     IsRefreshing="{Binding IsRefreshing}" 
+                     Command="{Binding RefreshCommand}">
+            <CollectionView ItemsSource="{Binding Circuits}" 
+                           SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="mdl:Circuit">
+                        <Border Margin="20,10,20,10" 
+                               Padding="0" 
+                               Stroke="#e0e0e0"
+                               StrokeThickness="1"
+                               StrokeShape="RoundRectangle 15"
+                               BackgroundColor="White">
+
+                            <Grid RowDefinitions="Auto,Auto,Auto,Auto" 
+                                  Padding="20,15,20,15"
+                                  RowSpacing="12">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.NavigateToCircuitDetailsCommand}"
+                                        CommandParameter="{Binding}" />
+                                </Grid.GestureRecognizers>
+
+                                <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
+                                    <Border Grid.Column="0"
+                                           WidthRequest="40"
+                                           HeightRequest="40"
+                                           StrokeShape="RoundRectangle 20"
+                                           Padding="0"
+                                           BackgroundColor="#e8f4fd"
+                                           VerticalOptions="Center">
+                                        <Label Text="🏎️" 
+                                               FontSize="20"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center" />
+                                    </Border>
+
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Name}" 
+                                           FontSize="22" 
+                                           FontAttributes="Bold" 
+                                           TextColor="#2c3e50"
+                                           VerticalOptions="Center"
+                                           Margin="15,0,0,0"/>
+
+                                    <Label Grid.Column="2"
+                                           Text="▶"
+                                           FontSize="16"
+                                           TextColor="#bdc3c7"
+                                           VerticalOptions="Center" />
+                                </Grid>
+
+                                <BoxView Grid.Row="1" 
+                                         HeightRequest="1" 
+                                         BackgroundColor="#ecf0f1" 
+                                         Margin="0,5,0,0"/>
+
+                                <Grid Grid.Row="2" ColumnDefinitions="Auto,*">
+                                    <Border Grid.Column="0"
+                                           WidthRequest="32"
+                                           HeightRequest="32"
+                                           StrokeShape="RoundRectangle 16"
+                                           Padding="0"
+                                           BackgroundColor="#e8f5e8"
+                                           VerticalOptions="Center">
+                                        <Label Text="🏆" 
+                                               FontSize="16"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center" />
+                                    </Border>
+
+                                    <StackLayout Grid.Column="1" 
+                                                Orientation="Horizontal"
+                                                VerticalOptions="Center"
+                                                Margin="12,0,0,0">
+                                        <Label Text="Mejor tiempo: " 
+                                               FontSize="14"
+                                               FontAttributes="Bold"
+                                               TextColor="#7f8c8d"/>
+                                        <Label Text="{Binding BestTime, StringFormat='{0:mm\\:ss\\.fff}'}" 
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="#27ae60"/>
+                                    </StackLayout>
+                                </Grid>
+
+                                <Grid Grid.Row="3" ColumnDefinitions="Auto,*">
+                                    <Border Grid.Column="0"
+                                           WidthRequest="32"
+                                           HeightRequest="32"
+                                           StrokeShape="RoundRectangle 16"
+                                           Padding="0"
+                                           BackgroundColor="#fff3e0"
+                                           VerticalOptions="Center">
+                                        <Label Text="📅" 
+                                               FontSize="16"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center" />
+                                    </Border>
+
+                                    <StackLayout Grid.Column="1" 
+                                                Orientation="Horizontal"
+                                                VerticalOptions="Center"
+                                                Margin="12,0,0,0">
+                                        <Label Text="Última sesión: " 
+                                               FontSize="14"
+                                               FontAttributes="Bold"
+                                               TextColor="#7f8c8d"/>
+                                        <Label Text="{Binding LastSessionDate, StringFormat='{0:dd/MM/yyyy}'}" 
+                                               FontSize="14"
+                                               TextColor="#34495e"/>
+                                    </StackLayout>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+                <CollectionView.EmptyView>
+                    <StackLayout VerticalOptions="Center" 
+                                HorizontalOptions="Center"
+                                Padding="40">
+                        <Border WidthRequest="120"
+                               HeightRequest="120"
+                               StrokeShape="RoundRectangle 60"
+                               BackgroundColor="#ecf0f1"
+                               Padding="0"
+                               HorizontalOptions="Center">
+                            <Label Text="🏁" 
+                                   FontSize="60"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <Label Text="¡Comienza tu aventura!" 
+                               FontSize="24" 
+                               FontAttributes="Bold"
+                               TextColor="#2c3e50"
+                               HorizontalTextAlignment="Center"
+                               Margin="0,20,0,5" />
+
+                        <Label Text="No hay circuitos registrados aún" 
+                               FontSize="16" 
+                               TextColor="#7f8c8d"
+                               HorizontalTextAlignment="Center"
+                               Margin="0,0,0,30" />
+
+                        <Button Text="Agregar circuito" 
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                Command="{Binding AddCircuitCommand}"
+                                CornerRadius="25"
+                                HeightRequest="50"
+                                WidthRequest="250"
+                                TextColor="White"
+                                BackgroundColor="#e10600" />
+
+                    </StackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+
+</ContentPage>
