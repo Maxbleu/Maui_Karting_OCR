@@ -12,3 +12,6 @@ git clone https://github.com/Maxbleu/Maui_Karting_OCR.git
 
 ## Usage
 Before using the app, you need to go to `Services` > `OcrService` and set the azure `ApiKey` and `Endpoint` to your own API key.
+
+## Demostration
+[Here](https://youtu.be/eMXatZFDTZs) you have a example executtion
