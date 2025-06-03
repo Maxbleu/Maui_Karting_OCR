@@ -5,8 +5,8 @@ namespace MauiApp_Karting_OCR.Services
 {
     public class OcrService
     {
-        private const string Endpoint = "https://37202-maldtts9-eastus2.cognitiveservices.azure.com/";
-        private const string ApiKey = "9dPR9kovcRkEOdCzzDJtcQlCcGdhJVZLjIUJfZdQ5YqxPIRpYZT0JQQJ99BEACHYHv6XJ3w3AAAAACOGUCWL";
+        private const string Endpoint = "your_endpoint";
+        private const string ApiKey = "your_api_key";
         private readonly DocumentAnalysisClient _client;
 
         public OcrService()
